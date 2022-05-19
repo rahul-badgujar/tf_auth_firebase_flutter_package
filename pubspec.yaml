@@ -11,6 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  tf_auth_base:
+    git:
+      url: https://github.com/rahul-badgujar/tf_auth_base_flutter_package.git
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
