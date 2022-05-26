@@ -1,7 +1,8 @@
 name: tf_auth_firebase
 description: A new Flutter package project.
 version: 0.0.1
-homepage:
+homepage: https://github.com/rahul-badgujar/tf_auth_firebase_flutter_package.git
+publish_to: none
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
@@ -14,6 +15,7 @@ dependencies:
   tf_auth_base:
     git:
       url: https://github.com/rahul-badgujar/tf_auth_base_flutter_package.git
+      ref: main
 
 dev_dependencies:
   flutter_test:
