@@ -1,34 +1,34 @@
 import 'package:tf_auth_base/tf_auth_base.dart';
 
-class TfAuthFirebase extends TfAuth {
+class TfAuthFirebase implements TfAuth {
   @override
-  Future<void> loginWithEmailPassword(
-      {required String email, required String password}) {
-    // Firebase specific implementation here
-    return Future<void>.value();
+  Future<void> loginWithApple() {
+    // TODO: implement loginWithApple
+    throw UnimplementedError();
   }
 
   @override
   Future<void> loginWithEmailLink({required String email}) {
-    // Firebase specific implementation here
-    return Future<void>.value();
+    // TODO: implement loginWithEmailLink
+    throw UnimplementedError();
   }
 
   @override
-  Future<void> loginWithApple() {
-    // Firebase specific implementation here
-    return Future<void>.value();
+  Future<void> loginWithEmailPassword(
+      {required String email, required String password}) {
+    // TODO: implement loginWithEmailPassword
+    throw UnimplementedError();
   }
 
   @override
   Future<void> loginWithFacebook() {
-    // Firebase specific implementation here
-    return Future<void>.value();
+    // TODO: implement loginWithFacebook
+    throw UnimplementedError();
   }
 
   @override
   Future<void> loginWithGoogle() {
-    // Firebase specific implementation here
-    return Future<void>.value();
+    // TODO: implement loginWithGoogle
+    throw UnimplementedError();
   }
 }
