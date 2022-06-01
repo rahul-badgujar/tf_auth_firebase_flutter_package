@@ -1,6 +1,10 @@
-import 'package:tf_auth_base/tf_auth_base.dart';
+import 'package:tf_auth_firebase/tf_auth_firebase.dart';
 
 class TfAuthFirebase extends TfAuth {
+  final FirebaseAuth firebaseAuthInstance;
+
+  TfAuthFirebase({required this.firebaseAuthInstance});
+
   @override
   Future<TfAuthUser> forgotPasswordForEmail({required String email}) {
     // TODO: implement forgotPasswordForEmail

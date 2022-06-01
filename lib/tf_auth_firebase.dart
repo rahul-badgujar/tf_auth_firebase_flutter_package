@@ -1,6 +1,7 @@
 library tf_auth_firebase;
 
-// exporting tf_base for basic data types and interfaces
+// exporting dependencies
+export 'package:firebase_auth/firebase_auth.dart';
 export 'package:tf_auth_base/tf_auth_base.dart';
 
 // exporting widgets and impl classes
