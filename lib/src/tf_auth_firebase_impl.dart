@@ -6,6 +6,39 @@ class TfAuthFirebase extends TfAuth {
   TfAuthFirebase({required this.firebaseAuthInstance});
 
   @override
+  Future<TfAuthUser> loginWithEmailPassword(
+      {required String email, required String password}) async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      final firebaseUser = credential.user;
+      if (firebaseUser == null) {
+        throw "Something went wrong";
+      }
+      final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
+      return tfAuthUser;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-disabled') {
+        throw 'The user account is disabled.';
+      } else if (e.code == 'user-not-found') {
+        throw 'No user found for given credentials.';
+      } else if (e.code == 'invalid-email') {
+        throw 'The email provided is invalid';
+      } else if (e.code == 'wrong-password') {
+        throw 'Wrong password.';
+      } else if (e.code == 'operation-not-allowed') {
+        throw 'Email Password Authentication not configured for this Firebase Project.';
+      } else {
+        throw "Something went wrong: $e";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<TfAuthUser> signupWithEmailPassword(
       {required String email, required String password}) async {
     try {
@@ -30,7 +63,7 @@ class TfAuthFirebase extends TfAuth {
       } else if (e.code == 'operation-not-allowed') {
         throw 'Email Password Authentication not configured for this Firebase Project.';
       } else {
-        throw "Something went wrong";
+        throw "Something went wrong: $e";
       }
     } catch (e) {
       rethrow;
@@ -52,13 +85,6 @@ class TfAuthFirebase extends TfAuth {
   @override
   Future<TfAuthUser> loginWithEmailLink({required String email}) {
     // TODO: implement loginWithEmailLink
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<TfAuthUser> loginWithEmailPassword(
-      {required String email, required String password}) {
-    // TODO: implement loginWithEmailPassword
     throw UnimplementedError();
   }
 
