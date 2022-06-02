@@ -12,6 +12,8 @@ dependencies:
   firebase_auth: ^3.3.19
   flutter:
     sdk: flutter
+  google_sign_in: ^5.3.2
+  sign_in_with_apple: ^4.0.0
   tf_auth_base:
     git:
       url: https://github.com/rahul-badgujar/tf_auth_base_flutter_package.git

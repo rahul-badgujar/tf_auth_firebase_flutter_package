@@ -1,3 +1,4 @@
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tf_auth_firebase/tf_auth_firebase.dart';
 
 class TfAuthFirebase extends TfAuth {
@@ -95,9 +96,51 @@ class TfAuthFirebase extends TfAuth {
   }
 
   @override
-  Future<TfAuthUser> loginWithGoogle() {
-    // TODO: implement loginWithGoogle
-    throw UnimplementedError();
+  Future<TfAuthUser> loginWithGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      try {
+        final UserCredential userCredential =
+            await firebaseAuthInstance.signInWithCredential(credential);
+
+        final firebaseUser = userCredential.user;
+        if (firebaseUser == null) {
+          throw "Something went wrong";
+        }
+        final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
+        return tfAuthUser;
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-disabled') {
+          throw 'The user account is disabled.';
+        } else if (e.code == 'user-not-found') {
+          throw 'No user found for given credentials.';
+        } else if (e.code == 'invalid-email') {
+          throw 'The email provided is invalid';
+        } else if (e.code == 'wrong-password') {
+          throw 'Wrong password.';
+        } else if (e.code == 'operation-not-allowed') {
+          throw 'Email Password Authentication not configured for this Firebase Project.';
+        } else {
+          throw "Something went wrong: $e";
+        }
+      } catch (e) {
+        rethrow;
+      }
+    } else {
+      throw "Something went wrong";
+    }
   }
 
   @override
