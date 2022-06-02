@@ -72,9 +72,15 @@ class TfAuthFirebase extends TfAuth {
   }
 
   @override
-  Future<TfAuthUser> forgotPasswordForEmail({required String email}) {
-    // TODO: implement forgotPasswordForEmail
-    throw UnimplementedError();
+  Future<void> forgotPasswordForEmail({required String email}) async {
+    try {
+      await firebaseAuthInstance.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw e.message.toString();
+    } catch (e) {
+      rethrow;
+    }
+    // throw UnimplementedError();
   }
 
   @override
@@ -84,7 +90,7 @@ class TfAuthFirebase extends TfAuth {
   }
 
   @override
-  Future<TfAuthUser> loginWithEmailLink({required String email}) {
+  Future<TfAuthUser> loginWithEmailLink({required String email}) async {
     // TODO: implement loginWithEmailLink
     throw UnimplementedError();
   }
