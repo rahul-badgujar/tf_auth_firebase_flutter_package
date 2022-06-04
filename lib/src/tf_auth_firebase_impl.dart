@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tf_auth_firebase/tf_auth_firebase.dart';
@@ -121,35 +123,44 @@ class TfAuthFirebase extends TfAuth {
 
   @override
   Future<TfAuthUser> loginWithFacebook() async {
-    try {
-      // FacebookAuthProvider facebookProvider = FacebookAuthProvider();
+    if (kIsWeb) {
+      try {
+        FacebookAuthProvider facebookProvider = FacebookAuthProvider();
 
-      // facebookProvider.addScope('email');
-      // facebookProvider.setCustomParameters({
-      //   'display': 'popup',
-      // });
-      await FacebookAuth.instance.logOut();
-      final LoginResult loginResult = await FacebookAuth.instance.login();
-
-      // Create a credential from the access token
-      final OAuthCredential facebookAuthCredential =
-          FacebookAuthProvider.credential(loginResult.accessToken!.token);
-
-      // Once signed in, return the UserCredential
-      final userCredential = await firebaseAuthInstance
-          .signInWithCredential(facebookAuthCredential);
-      final firebaseUser = userCredential.user;
-      if (firebaseUser == null) {
-        throw "Something went wrong";
+        facebookProvider.addScope('email');
+        facebookProvider.setCustomParameters({
+          'display': 'popup',
+        });
+        await firebaseAuthInstance.signInWithPopup(facebookProvider);
+      } on FirebaseAuthException catch (e) {
+        throw e.message.toString();
+      } catch (e) {
+        rethrow;
       }
-      final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
-      return tfAuthUser;
-    } on FirebaseAuthException catch (e) {
-      throw e.message.toString();
-    } catch (e) {
-      rethrow;
+    } else {
+      try {
+        final LoginResult loginResult = await FacebookAuth.instance.login();
+
+        // Create a credential from the access token
+        final OAuthCredential facebookAuthCredential =
+            FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+        // Once signed in, return the UserCredential
+        final userCredential = await firebaseAuthInstance
+            .signInWithCredential(facebookAuthCredential);
+        final firebaseUser = userCredential.user;
+        if (firebaseUser == null) {
+          throw "Something went wrong";
+        }
+        final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
+        return tfAuthUser;
+      } on FirebaseAuthException catch (e) {
+        throw e.message.toString();
+      } catch (e) {
+        rethrow;
+      }
     }
-    // // TODO: implement loginWithFacebook
+    throw "something went wrong";
     // throw UnimplementedError();
   }
 
