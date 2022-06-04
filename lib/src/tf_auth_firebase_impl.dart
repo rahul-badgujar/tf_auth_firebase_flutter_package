@@ -122,6 +122,13 @@ class TfAuthFirebase extends TfAuth {
   @override
   Future<TfAuthUser> loginWithFacebook() async {
     try {
+      // FacebookAuthProvider facebookProvider = FacebookAuthProvider();
+
+      // facebookProvider.addScope('email');
+      // facebookProvider.setCustomParameters({
+      //   'display': 'popup',
+      // });
+      await FacebookAuth.instance.logOut();
       final LoginResult loginResult = await FacebookAuth.instance.login();
 
       // Create a credential from the access token
