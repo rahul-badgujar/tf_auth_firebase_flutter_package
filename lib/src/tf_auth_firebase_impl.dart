@@ -123,45 +123,45 @@ class TfAuthFirebase extends TfAuth {
 
   @override
   Future<TfAuthUser> loginWithFacebook() async {
-    if (kIsWeb) {
-      try {
-        FacebookAuthProvider facebookProvider = FacebookAuthProvider();
+    // if (kIsWeb) {
+    try {
+      FacebookAuthProvider facebookProvider = FacebookAuthProvider();
 
-        facebookProvider.addScope('email');
-        facebookProvider.setCustomParameters({
-          'display': 'popup',
-        });
-        await firebaseAuthInstance.signInWithPopup(facebookProvider);
-      } on FirebaseAuthException catch (e) {
-        throw e.message.toString();
-      } catch (e) {
-        rethrow;
-      }
-    } else {
-      try {
-        final LoginResult loginResult = await FacebookAuth.instance.login();
-
-        // Create a credential from the access token
-        final OAuthCredential facebookAuthCredential =
-            FacebookAuthProvider.credential(loginResult.accessToken!.token);
-
-        // Once signed in, return the UserCredential
-        final userCredential = await firebaseAuthInstance
-            .signInWithCredential(facebookAuthCredential);
-        final firebaseUser = userCredential.user;
-        if (firebaseUser == null) {
-          throw "Something went wrong";
-        }
-        final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
-        return tfAuthUser;
-      } on FirebaseAuthException catch (e) {
-        throw e.message.toString();
-      } catch (e) {
-        rethrow;
-      }
+      facebookProvider.addScope('email');
+      facebookProvider.setCustomParameters({
+        'display': 'popup',
+      });
+      await firebaseAuthInstance.signInWithPopup(facebookProvider);
+    } on FirebaseAuthException catch (e) {
+      throw e.message.toString();
+    } catch (e) {
+      rethrow;
     }
-    throw "something went wrong";
-    // throw UnimplementedError();
+    // } else {
+    // try {
+    //   final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    //   // Create a credential from the access token
+    //   final OAuthCredential facebookAuthCredential =
+    //       FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+    //   // Once signed in, return the UserCredential
+    //   final userCredential = await firebaseAuthInstance
+    //       .signInWithCredential(facebookAuthCredential);
+    //   final firebaseUser = userCredential.user;
+    //   if (firebaseUser == null) {
+    //     throw "Something went wrong";
+    //   }
+    //   final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
+    //   return tfAuthUser;
+    // } on FirebaseAuthException catch (e) {
+    //   throw e.message.toString();
+    // } catch (e) {
+    //   rethrow;
+    // }
+    // }
+    // throw "something went wrong";
+    throw UnimplementedError();
   }
 
   @override
