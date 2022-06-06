@@ -1,27 +1,38 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+### TfAuthFirebase
+This is Firebase Implementation Specific Package under Tenfins TfAuth Library.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Currently support added for:
+
+- Email/Password Login
+- Email/Password Signup
+- Forgot Password for Email
+- Login with Facebook
+- Login with Google
+- Logout
+
+Support coming soon for:
+
+- Email Link Login
+- Apple Login
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+All you need to do is add tf_auth_firebase dependency in your pubspec.yaml
+
+```dart
+tf_auth_firebase:
+    git:
+      url: https://github.com/rahul-badgujar/tf_auth_firebase_flutter_package.git
+      ref: main
+```
+
+And import in your codebase using:
+
+```dart
+import 'package:tf_auth_firebase/tf_auth_firebase.dart';
+```
 
 ## Usage
 
