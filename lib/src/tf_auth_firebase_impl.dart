@@ -6,7 +6,16 @@ import 'package:tf_auth_firebase/tf_auth_firebase.dart';
 class TfAuthFirebase extends TfAuth {
   final FirebaseAuth firebaseAuthInstance;
 
-  TfAuthFirebase({required this.firebaseAuthInstance});
+  TfAuthFirebase({required this.firebaseAuthInstance}) {
+    // Subscribing to Firebase User Changes Stream
+    firebaseAuthInstance.userChanges().listen((user) {
+      if (user == null) {
+        currentUser = null;
+      } else {
+        currentUser = __tfAuthUserFromFirebaseUser(user);
+      }
+    });
+  }
 
   @override
   Future<TfAuthUser> loginWithEmailPassword(
