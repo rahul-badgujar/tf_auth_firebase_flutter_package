@@ -17,6 +17,10 @@ Support coming soon for:
 - Email Link Login
 - Apple Login
 
+## Prerequisite Setup
+
+
+
 ## Getting started
 
 All you need to do is add tf_auth_firebase dependency in your pubspec.yaml

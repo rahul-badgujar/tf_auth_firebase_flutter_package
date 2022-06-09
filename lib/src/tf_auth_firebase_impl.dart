@@ -20,8 +20,8 @@ class TfAuthFirebase extends TfAuth {
       if (firebaseUser == null) {
         throw "Something went wrong";
       }
-      final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
-      return tfAuthUser;
+      currentUser = __tfAuthUserFromFirebaseUser(firebaseUser);
+      return currentUser!;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-disabled') {
         throw 'The user account is disabled.';
@@ -54,8 +54,8 @@ class TfAuthFirebase extends TfAuth {
       if (firebaseUser == null) {
         throw "Something went wrong";
       }
-      final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
-      return tfAuthUser;
+      currentUser = __tfAuthUserFromFirebaseUser(firebaseUser);
+      return currentUser!;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw 'The password provided is too weak.';
@@ -151,8 +151,8 @@ class TfAuthFirebase extends TfAuth {
         if (firebaseUser == null) {
           throw "Something went wrong";
         }
-        final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
-        return tfAuthUser;
+        currentUser = __tfAuthUserFromFirebaseUser(firebaseUser);
+        return currentUser!;
       } on FirebaseAuthException catch (e) {
         throw e.message.toString();
       } catch (e) {
@@ -160,7 +160,6 @@ class TfAuthFirebase extends TfAuth {
       }
     }
     throw "something went wrong";
-    // throw UnimplementedError();
   }
 
   @override
@@ -187,8 +186,8 @@ class TfAuthFirebase extends TfAuth {
         if (firebaseUser == null) {
           throw "Something went wrong";
         }
-        final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
-        return tfAuthUser;
+        currentUser = __tfAuthUserFromFirebaseUser(firebaseUser);
+        return currentUser!;
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-disabled') {
           throw 'The user account is disabled.';
@@ -199,7 +198,7 @@ class TfAuthFirebase extends TfAuth {
         } else if (e.code == 'wrong-password') {
           throw 'Wrong password.';
         } else if (e.code == 'operation-not-allowed') {
-          throw 'Email Password Authentication not configured for this Firebase Project.';
+          throw 'Google Authentication not configured for this Firebase Project.';
         } else {
           throw "Something went wrong: $e";
         }
@@ -215,6 +214,7 @@ class TfAuthFirebase extends TfAuth {
   Future<void> logout() async {
     try {
       await firebaseAuthInstance.signOut();
+      await super.logout();
     } on FirebaseAuthException catch (e) {
       throw e.message.toString();
     } catch (e) {
