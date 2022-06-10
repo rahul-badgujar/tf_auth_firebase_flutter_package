@@ -134,15 +134,15 @@ class TfAuthFirebase extends TfAuth {
         await firebaseAuthInstance
             .signInWithPopup(facebookProvider)
             .then((value) => firebaseUser = value.user!);
-        // if (firebaseUser == null) {
-        //   print(firebaseUser);
-        //   throw "Something went wrong";
-        // }
-        print("In web implementation");
+        if (firebaseUser == null) {
+          print(firebaseUser);
+          throw "Something went wrong";
+        }
+
         final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
         return tfAuthUser;
       } on FirebaseAuthException catch (e) {
-        throw e.message.toString();
+        throw "Hello world";
       } catch (e) {
         rethrow;
       }
@@ -159,9 +159,8 @@ class TfAuthFirebase extends TfAuth {
             .signInWithCredential(facebookAuthCredential);
         final firebaseUser = userCredential.user;
         if (firebaseUser == null) {
-          throw "Something went wrong 2";
+          throw "Something went wrong";
         }
-        print("In Mobile implementation");
         final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
         return tfAuthUser;
       } on FirebaseAuthException catch (e) {
