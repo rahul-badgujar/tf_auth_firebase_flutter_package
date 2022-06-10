@@ -138,6 +138,7 @@ class TfAuthFirebase extends TfAuth {
         //   print(firebaseUser);
         //   throw "Something went wrong";
         // }
+        print("In web implementation");
         final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
         return tfAuthUser;
       } on FirebaseAuthException catch (e) {
@@ -158,8 +159,9 @@ class TfAuthFirebase extends TfAuth {
             .signInWithCredential(facebookAuthCredential);
         final firebaseUser = userCredential.user;
         if (firebaseUser == null) {
-          throw "Something went wrong";
+          throw "Something went wrong 2";
         }
+        print("In Mobile implementation");
         final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
         return tfAuthUser;
       } on FirebaseAuthException catch (e) {
