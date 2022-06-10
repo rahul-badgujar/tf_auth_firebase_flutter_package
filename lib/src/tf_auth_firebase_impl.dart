@@ -130,14 +130,15 @@ class TfAuthFirebase extends TfAuth {
         facebookProvider.setCustomParameters({
           'display': 'popup',
         });
-        final credential =
-            await firebaseAuthInstance.signInWithPopup(facebookProvider);
-        final firebaseUser = credential.user;
+        late User firebaseUser;
+        await firebaseAuthInstance
+            .signInWithPopup(facebookProvider)
+            .then((value) => firebaseUser = value.user!);
         // if (firebaseUser == null) {
         //   print(firebaseUser);
         //   throw "Something went wrong";
         // }
-        final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser!);
+        final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
         return tfAuthUser;
       } on FirebaseAuthException catch (e) {
         throw e.message.toString();
