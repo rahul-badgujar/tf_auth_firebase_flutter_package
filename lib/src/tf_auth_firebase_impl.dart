@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -131,7 +132,14 @@ class TfAuthFirebase extends TfAuth {
         facebookProvider.setCustomParameters({
           'display': 'popup',
         });
-        await firebaseAuthInstance.signInWithPopup(facebookProvider);
+        final credential =
+            await firebaseAuthInstance.signInWithPopup(facebookProvider);
+        final firebaseUser = credential.user;
+        if (firebaseUser == null) {
+          throw "Something went wrong";
+        }
+        final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
+        return tfAuthUser;
       } on FirebaseAuthException catch (e) {
         throw e.message.toString();
       } catch (e) {
