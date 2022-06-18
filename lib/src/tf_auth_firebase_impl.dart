@@ -6,8 +6,15 @@ import 'package:tf_auth_firebase/tf_auth_firebase.dart';
 class TfAuthFirebase extends TfAuth {
   final FirebaseAuth firebaseAuthInstance;
 
-  TfAuthFirebase({required this.firebaseAuthInstance}) {
-    // Subscribing to Firebase User Changes Stream
+  TfAuthFirebase({required this.firebaseAuthInstance});
+
+  @override
+  Future<void> init() async {
+    await super.init();
+    _subscribeToFirebaseUserChanges();
+  }
+
+  void _subscribeToFirebaseUserChanges() {
     firebaseAuthInstance.userChanges().listen((user) {
       if (user == null) {
         currentUser = null;
