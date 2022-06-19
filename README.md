@@ -40,7 +40,7 @@ import 'package:tf_auth_firebase/tf_auth_firebase.dart';
 
 ## Usage
 
-# Configure Firebase
+### Configure Firebase
 
 Install the plugin by running the following command from the project root:
 ```yaml
@@ -62,7 +62,7 @@ flutterfire configure
 
 Once configured, a firebase_options.dart file will be generated for you containing all the options required for initialization. Additionally, if your Flutter app supports Android then the Android Google Services Gradle plugin will automatically be applied for you.
 
-# Initialization
+## Initialization
 
 Initialize Firebase and TfAuthController before you use to get started with the authentification.
 ```yaml
@@ -84,7 +84,7 @@ void main() async {
   runApp(MyApp());
 }
 ```
-# Email and Password Sign up
+### Email and Password Sign up
 
 Use the following code for Email and Password sign-up which returns a TfAuthUser
 
@@ -93,7 +93,7 @@ final user = await TfAuthController.instance.authProvider
                       .signupWithEmailPassword( email: email, password: password);
 ```
 
-# Email and Password Sign in
+### Email and Password Sign in
 
 Use the following code for Email and Password sign-in which returns a TfAuthUser
 
@@ -103,17 +103,16 @@ Use the following code for Email and Password sign-in which returns a TfAuthUser
 ```
 
 
-# Google Sign In
+### Google Sign In
 
 Make sure you enable Google Sign in Firebase Authentication Console.
 Add SHA1 and SHA256 keys in your Android app setup and configuration in firebase project settings > General
 
 ```dart
-final user =
-                await TfAuthController.instance.authProvider.loginWithGoogle();
+final user = await TfAuthController.instance.authProvider.loginWithGoogle();
 ```
 
-# Facebook Sign In
+### Facebook Sign In
 
 Before getting started setup your Facebook Developer App and follow the setup process to enable Facebook Login.
 
@@ -124,11 +123,12 @@ flutter pub add firebase_core
 ```
 
 ```dart
-final user =
-                await TfAuthController.instance.authProvider.loginWithFacebook();
+final user = await TfAuthController.instance.authProvider.loginWithFacebook();
 ```
 
-# Sign Out
+### Sign Out
+To Sign out of the app use the following command
+
 ```dart
 await TfAuthController.instance.authProvider.logOut();
 ```
@@ -136,6 +136,17 @@ await TfAuthController.instance.authProvider.logOut();
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+### User Status
+
+Use the following commands to know whether the user is logged in
+```yaml
+await TfAuthController.instance.authProvider.isUserLoggedIn
+```
+
+```yaml
+await TfAuthController.instance.authProvider.isUserNotLoggedIn
+```
+### User Details
+```yaml
+await TfAuthController.instance.authProvider.currentUser;
+```
