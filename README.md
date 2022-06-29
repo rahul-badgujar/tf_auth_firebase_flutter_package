@@ -126,6 +126,8 @@ Follow the given steps to add the codes in your xml and gradel files for faceboo
 
 With this your facebook app is created.
 
+#### Configure Facebook sign in Firebase Console
+
 Enable facebook sign-in in Firebase Console and paste app id and app secret from the facebook app into your Firebase console. Copy the link given below app secret field in Firebase facebook sign in console and paste it into your Facebook app/settings/Valid OAuth Redirect URIs field without this your redirect url can't be verified.
 
 ```yaml
