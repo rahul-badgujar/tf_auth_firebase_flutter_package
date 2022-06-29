@@ -116,7 +116,17 @@ final user = await TfAuthController.instance.authProvider.loginWithGoogle();
 
 Before getting started setup your Facebook Developer App and follow the setup process to enable Facebook Login.
 
-Ensure the "Facebook" sign-in provider is enabled on the Firebase Console. with the Facebook App ID and Secret set.
+#### Create an Facebook App on developers.facebook.com
+
+Setup Android Facebook application through Quickstart, after coming to the 4th step we need to enter the package name and the default activity class name which can be found in AndroidManifestation.xml in your flutter project.
+
+Enter the given command in your terminal/command prompt and enter the output string into the given field.
+
+Follow the given steps to add the codes in your xml and gradel files for facebook sign-in permisions.
+
+With this your facebook app is created.
+
+Enable facebook sign-in in Firebase Console and paste app id and app secret from the facebook app into your Firebase console. Copy the link given below app secret field in Firebase facebook sign in console and paste it into your Facebook app/settings/Valid OAuth Redirect URIs field without this your redirect url can't be verified.
 
 ```yaml
 flutter pub add firebase_core
