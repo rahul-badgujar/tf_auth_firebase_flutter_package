@@ -213,6 +213,7 @@ class TfAuthFirebase extends TfAuth {
 
   @override
   Future<void> logout() async {
+    await super.logout();
     try {
       await firebaseAuthInstance.signOut();
     } on FirebaseAuthException catch (e) {
