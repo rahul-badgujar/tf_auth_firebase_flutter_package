@@ -18,7 +18,12 @@ Support coming soon for:
 - Apple Login
 
 ## Prerequisite Setup
+Add Firebase to your existing Google Cloud project:
 
+    a. Log in to the [Firebase console](https://console.firebase.google.com/), then click Add project.
+    b. Select your existing Google Cloud project from the dropdown menu, then click Continue.
+    c. (Optional) Enable Google Analytics for your project, then follow the prompts to select or create a Google Analytics account.
+    d. Click Add Firebase.
 
 
 ## Getting started
