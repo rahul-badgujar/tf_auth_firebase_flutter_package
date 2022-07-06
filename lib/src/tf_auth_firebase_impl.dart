@@ -139,9 +139,19 @@ class TfAuthFirebase extends TfAuth {
         facebookProvider.setCustomParameters({
           'display': 'popup',
         });
-        await firebaseAuthInstance.signInWithPopup(facebookProvider);
+        late User firebaseUser;
+        await firebaseAuthInstance
+            .signInWithPopup(facebookProvider)
+            .then((value) => firebaseUser = value.user!);
+        if (firebaseUser == null) {
+          print(firebaseUser);
+          throw "Something went wrong";
+        }
+
+        final tfAuthUser = __tfAuthUserFromFirebaseUser(firebaseUser);
+        return tfAuthUser;
       } on FirebaseAuthException catch (e) {
-        throw e.message.toString();
+        throw "Hello world";
       } catch (e) {
         rethrow;
       }
@@ -168,7 +178,6 @@ class TfAuthFirebase extends TfAuth {
         rethrow;
       }
     }
-    throw "something went wrong";
   }
 
   @override
